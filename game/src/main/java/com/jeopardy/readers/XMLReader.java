@@ -9,6 +9,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.jeopardy.Question;
+
+import java.beans.Statement;
 import java.io.IOException;
 
 public class XMLReader implements Reader{
@@ -23,35 +26,48 @@ public class XMLReader implements Reader{
     }
    
    public ArrayList<Question> read(){
-        factory = DocumentBuilderFactory.newInstance();
             try {
+                factory = DocumentBuilderFactory.newInstance();
                 builder = factory.newDocumentBuilder();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            }
-            try {
-                document = builder.parse(file);
-            } catch (SAXException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        NodeList nodes = document.getElementsByTagName("QuestionItem");
-           for (int i = 0; i < nodes.getLength(); i++){
-               Element e = (Element) nodes.item(i);
-               Question q = new Question();
-               q.setCategory(e.getElementsByTagName("Category").item(0).getTextContent());
-               //q.setValue(Integer.parseInt(e.getElementsByTagName("Value").item(0).getTextContent()));
-               q.setStatement(e.getElementsByTagName("Value").item(0).getTextContent());
-               //Element options = (Element) e.getElementsByTagName("Options").item(0);
-               q.setA(e.getElementsByTagName("OptionA").item(0).getTextContent());
-               q.setB(e.getElementsByTagName("OptionB").item(0).getTextContent());
-               q.setC(e.getElementsByTagName("OptionC").item(0).getTextContent());
-               q.setD(e.getElementsByTagName("OptionD").item(0).getTextContent());
-               q.setCorrect(e.getElementsByTagName("CorrectAnswer").item(0).getTextContent());
-               questions.add(q);
-            }     
-       return questions;
+                document = builder.parse(new File(file));
+                document.getDocumentElement().normalize();
+
+                NodeList node = document.getElementsByTagName("QuestionItem");
+
+                for (int i = 0; i < nodes.getLength(); i++ ){
+                    Element e = (Element) nodes.item(i);
+                    Question q = new Question();
+
+                    q.setCategory(getElementsByTagName(e, "Category"));
+
+                    String valueText = getElementsByTagName(e, "Value");
+
+                    try {
+                        q.setValue(Integer.parseInt(valueText));
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Invalid value format for question " + i + ": " + valueText);
+                        q.setValue(0);
+                    }
+
+                    q.setStatement(getElementsByTagName(e, Statement));
+
+                    q.setA(getElementsByTagName(e, "OptionA"));
+                    q.setB(getElementsByTagName(e, "OptionB"));
+                    q.setC(getElementsByTagName(e, "OptionC"));
+                    q.setD(getElementsByTagName(e, "OptionD"));
+
+                    q.setCorrect(getElementsByTagName(e, "CorrectAnswer"));
+
+                    questions.add(q);
+
+                }
+
+            } catch (Exception e) {
+            System.err.println("Error reading XML file: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return questions;
     }
 }
 
