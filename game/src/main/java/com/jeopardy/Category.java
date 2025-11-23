@@ -25,6 +25,5 @@ public class Category implements Component{
             }
         }
         return false;
-        /workspaces/gameProject/game/pom.xml
     }
 }
