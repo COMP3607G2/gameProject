@@ -1,6 +1,6 @@
 package com.jeopardy;
 
-public class Question {
+public class Question implements Component{
     private String category;
     private int value;
     private String statement;
@@ -9,6 +9,7 @@ public class Question {
     private String optionC;
     private String optionD;
     private String correct;
+    private boolean answered = false;
  
     public void setCategory(String category){this.category = category;}
     
@@ -26,6 +27,8 @@ public class Question {
     
     public void setCorrect(String correct){this.correct = correct;}
     
+    public void answered(){answered = true;}
+    
     public String getCategory(){return category;}
     
     public String getStatement(){return statement;}
@@ -41,4 +44,19 @@ public class Question {
     public String getD(){return optionD;}
     
     public String getCorrect(){return correct;}
+
+    public boolean ifAnswered(){return answered;}
+
+    public String getAnswer(String answer){
+        if (answer.equals("A")){
+            return optionA;
+        }
+        else if (answer.equals("B")){
+            return optionB;
+        }
+        else if (answer.equals("C")){
+            return optionC;
+        }
+        return optionD;
+    }
 }

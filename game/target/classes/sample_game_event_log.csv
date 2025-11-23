@@ -1,0 +1,27 @@
+
+GAME1,System,Start Game,2025-11-16T22:59:31.783049800,,,,,
+GAME1,System,Load File,2025-11-16T22:59:31.838976300,,,,Success,
+GAME1,System,Select Player Count,2025-11-16T22:59:38.012206200,,,1,N/A,
+GAME1,Tristan,Enter Player Name,2025-11-16T22:59:40.624118800,,,Tristan,N/A,
+GAME1,Tristan,Select Category,2025-11-16T22:59:42.939894,Arrays,,,,
+GAME1,Tristan,Select Question,2025-11-16T22:59:43.990130900,Arrays,100,,,
+GAME1,Tristan,Answer Question,2025-11-16T22:59:50.151124500,Arrays,100,A,Correct,100
+GAME1,Tristan,Select Category,2025-11-16T22:59:52.592738500,Arrays,,,,
+GAME1,Tristan,Select Question,2025-11-16T22:59:53.892860200,Arrays,200,,,
+GAME1,Tristan,Answer Question,2025-11-16T22:59:58.226357100,Arrays,200,A,Wrong,-100
+GAME1,System,Generate Report,2025-11-16T22:59:58.246711800,,,,N/A,
+GAME1,System,Generate Event Log,2025-11-16T22:59:58.247710500,,,,N/A,
+GAME1,System,Exit Game,2025-11-16T22:59:58.251365400,,,,,
+GAME1,System,Start Game,2025-11-17T01:37:07.384689700,,,,,
+GAME1,System,Load File,2025-11-17T01:37:07.448292400,,,,Success,
+GAME1,System,Select Player Count,2025-11-17T01:37:08.971315400,,,1,N/A,
+GAME1,Tristan,Enter Player Name,2025-11-17T01:37:11.203790300,,,Tristan,N/A,
+GAME1,Tristan,Select Category,2025-11-17T01:37:13.850981300,Arrays,,,,
+GAME1,Tristan,Select Question,2025-11-17T01:37:15.089299,Arrays,100,,,
+GAME1,Tristan,Answer Question,2025-11-17T01:37:31.758803600,Arrays,100,A,Correct,100
+GAME1,Tristan,Select Category,2025-11-17T01:37:45.672063300,Arrays,,,,
+GAME1,Tristan,Select Question,2025-11-17T01:37:46.715038,Arrays,200,,,
+GAME1,Tristan,Answer Question,2025-11-17T01:37:49.202808800,Arrays,200,B,Correct,300
+GAME1,System,Generate Report,2025-11-17T01:37:49.216070700,,,,N/A,
+GAME1,System,Generate Event Log,2025-11-17T01:37:49.216070700,,,,N/A,
+GAME1,System,Exit Game,2025-11-17T01:37:49.216070700,,,,,

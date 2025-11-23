@@ -1,57 +1,74 @@
 package com.jeopardy;
 
 import java.util.Scanner;
-
 import com.jeopardy.readers.CSVReader;
+import com.jeopardy.readers.JSONReader;
+import com.jeopardy.readers.Reader;
+import com.jeopardy.readers.XMLReader;
 import com.jeopardy.writers.CSVLogger;
+import com.jeopardy.writers.DOCWriter;
+import com.jeopardy.writers.PDFWriter;
 import com.jeopardy.writers.TXTWriter;
-
 import java.util.ArrayList;
 
 public class Runner{
     public static void main(String[] args){
         ArrayList<Question> questions = new ArrayList<Question>();
-        //ArrayList<Question> chosen = new ArrayList<Question>();
         ArrayList<ScoreDisplay> displays = new ArrayList<ScoreDisplay>();
         ArrayList<String> gameTurns = new ArrayList<String>();
+        WriterContext wtx = new WriterContext();
+        Reader rd;
+        boolean repeat = false;
 
         Player[] players = new Player[4];
         int i = 0;
         int playerNumber = 0;
         String wc;
-
-        CSVLogger log = new CSVLogger("C:\\Users\\Tristan\\Desktop\\Jeopardy\\game\\src\\main\\resources\\sample_game_event_log.csv");
+        
+        CSVLogger log = new CSVLogger("sample_game_event_log.csv");
         log.logger("System", "Start Game", "", "", "", "", "");
         
-        
         Scanner scanner = new Scanner(System.in);
-        CSVReader rd = new CSVReader("C:\\Users\\Tristan\\Desktop\\Jeopardy\\game\\src\\main\\resources\\sample_game_CSV.csv");
+        System.out.println("Enter file input format(CSV/JSON/XML): ");
+        String type = scanner.nextLine();
+        if (type.equals("CSV")){
+            String path = Runner.class.getResource("/sample_game_CSV.csv").getPath();
+            rd = new CSVReader(path);
+        }
+        else if (type.equals("JSON")){
+            String path = Runner.class.getResource("/sample_game_JSON.json").getPath();
+            rd = new CSVReader(path);
+        }
+        else{
+            String path = Runner.class.getResource("/sample_game_XML.xml").getPath();
+            rd = new XMLReader(path);
+        }
         
-        TXTWriter txt = new TXTWriter("sample_game_report.txt");
-        //DOCWriter doc = new DOCWriter("C:\\Users\\Tristan\\Desktop\\Jeopardy\\game\\src\\main\\resources\\sample_game_report.doc");
-        WriterContext wtx = new WriterContext();
-        wtx.setWriterStrategy(txt);
         questions = rd.read();
         log.logger("System", "Load File", "", "", "", "Success", "");
-        
-        gameTurns.add("JEOPARDY PROGRAMMING GAME REPORT\n================================\n\n");
-        gameTurns.add("Players: ");
+        gameTurns.add("JEOPARDY PROGRAMMING GAME REPORT\n================================\n\nPlayers: ");
 
         System.out.println("Enter number of players:");
         int numberPlayers = scanner.nextInt();
         scanner.nextLine();
         log.logger("System", "Select Player Count", "", "", Integer.toString(numberPlayers), "N/A", "");
-        
+
         while (i < numberPlayers){
-            System.out.println("Enter name of player:");
+            int number = i + 1;
+            System.out.println("Enter name of player " + number + ":");
             String name = scanner.nextLine();
             Player newPlayer = new Player(name);
             players[i] = newPlayer;
-            i++;
-            gameTurns.add(name + ",");
+            gameTurns.add(name);
+            if (i < numberPlayers - 1){
+                gameTurns.add(", ");
+            }
             displays.add(new ScoreDisplay(name));
+            i++;
             log.logger(name, "Enter Player Name", "", "", name, "N/A", "");
         }
+       
+        gameTurns.add("\n\nGameplay Summary:\n-----------------\n");
 
         for (int j = 0; j < numberPlayers; j++){
             for (ScoreDisplay display : displays){
@@ -59,36 +76,27 @@ public class Runner{
             }
         }
 
-        gameTurns.add("\n\nGameplay Summary:\n-----------------\n");
-        
-        for (int numQuestions = 0; numQuestions < 2; numQuestions++){
-            i = 0;
+        int numQuestions = 0;
+        while (numQuestions < 1){
             if (playerNumber >= numberPlayers){
                 playerNumber = 0;
             }
             Player currentPlayer = players[playerNumber];
             System.out.println("\n" + currentPlayer.getName() + ", enter category:");
-            String category = scanner.nextLine();
-            log.logger(currentPlayer.getName(), "Select Category", category, "", "", "", "");
+            String cat = scanner.nextLine();
+            log.logger(currentPlayer.getName(), "Select Category", cat, "", "", "", "");
             System.out.println("Enter value:");
             int value = scanner.nextInt();
             scanner.nextLine();
-            log.logger(currentPlayer.getName(), "Select Question", category, Integer.toString(value), "", "", "");
-            while (i < questions.size()){
-                //boolean exists = false;
-                Question q = new Question();
-                q = questions.get(i);
-                if (q.getCategory().equals(category) && q.getValue() == value){
-                    //for (Question question : chosen){
-                    //    if (question == q){
-                    //        exists = true;
-                    //    }
-                    //}
-                    //if (exists){
-                    //    System.out.println("Question chosen already");
-                    
-                    //else{
-                    //    chosen.add(q);
+            log.logger(currentPlayer.getName(), "Select Question", cat, Integer.toString(value), "", "", "");
+            for (Question q : questions){
+                if (q.getCategory().equals(cat) && q.getValue() == value){
+                    if (q.ifAnswered()){
+                        repeat = true;
+                        System.out.println("Question chosen already");
+                    }
+                    else{
+                        q.answered();
                         System.out.println(q.getStatement());
                         System.out.println("These are your choices:");
                         System.out.println("A) " + q.getA() + "\nB) " + q.getB()+ "\nC) " + q.getC()+ "\nD) " + q.getD());
@@ -102,27 +110,50 @@ public class Runner{
                             wc = "Wrong";
                             currentPlayer.updatePoints(-value);
                         }
-                        log.logger(currentPlayer.getName(), "Answer Question", category, Integer.toString(value), answer, wc, Integer.toString(currentPlayer.getPoints()));
-                        System.out.println(wc);
-                        gameTurns.add("Turn " + (numQuestions + 1) + ": " + currentPlayer.getName() + " selected " + q.getCategory() + " for " + q.getValue() + " points.");
+                        log.logger(currentPlayer.getName(), "Answer Question", cat, Integer.toString(value), q.getAnswer(answer), wc, Integer.toString(currentPlayer.getPoints()));
+                        System.out.println("\nThe answer was " + wc + ".");
+                        gameTurns.add("Turn " + (numQuestions + 1) + ": " + currentPlayer.getName() + " selected " + q.getCategory() + " for " + q.getValue() + " pts");
                         gameTurns.add("\nQuestion: " + q.getStatement());
-                        gameTurns.add("\nAnswer: " + q.getCorrect() + " - " + wc + "(" + q.getValue() + "pts)");
+                        gameTurns.add("\nAnswer: " + q.getAnswer(answer) + " - " + wc + "(" + q.getValue() + "pts)");
                         gameTurns.add("\nScore after turn: " + currentPlayer.getName() + " = " + currentPlayer.getPoints() + "\n\n");
-                    //} 
+                    } 
                 }
-                i++;
             }
-            playerNumber++;
-        
-        
+            if (!repeat){
+                numQuestions++;
+                playerNumber++;
+                System.out.println("\nDo you want to continue?(Y/N): ");
+                String c = scanner.nextLine();
+                if (c.equals("N")){
+                    break;
+                }
+            }
+            repeat = false;
         }
+
         gameTurns.add("Final Scores:");
         int count  = 0;
         while (count < numberPlayers){
-            gameTurns.add("\n" + players[count].getName() + ":" + players[count].getPoints());
+            gameTurns.add("\n" + players[count].getName() + ": " + players[count].getPoints());
             count++;
         }
+
         gameTurns.add("\n");
+        System.out.println("Enter report format(TXT/DOC/PDF): ");
+        String report = scanner.nextLine();
+        if (report.equals("TXT")){
+            TXTWriter txt = new TXTWriter("sample_game_report.txt");
+            wtx.setWriterStrategy(txt);
+        }
+        else if (report.equals("DOC")){
+            DOCWriter doc = new DOCWriter("sample_game_report.doc");
+            wtx.setWriterStrategy(doc);
+        }
+        else{
+            PDFWriter pdf = new PDFWriter("sample_game_report.pdf");
+            wtx.setWriterStrategy(pdf);
+        }
+
         wtx.list(gameTurns);
         log.logger("System", "Generate Report", "", "", "", "N/A", "");
         log.logger("System", "Generate Event Log", "", "", "", "N/A", "");
