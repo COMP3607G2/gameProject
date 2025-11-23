@@ -3,7 +3,7 @@ package com.jeopardy.writers;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-// import java.io.File;
+import java.io.File;
 
 public class CSVLogger{
     private String caseID;
@@ -17,13 +17,14 @@ public class CSVLogger{
     }
     
     public void logger(String playerID, String activity, String category, String questionValue, String answerGiven, String result, String scoreAfterPlay){
-            try(FileWriter writer = new FileWriter(file, true)){
-                if (file.length() == 0){
-                    writer.write("Case_ID,Player_ID,Activity,Timestamp,Category,Question_Value,Answer_Given,Result,Score_After_Play");
-               }
+            File f = new File(file);
+            try(FileWriter writer = new FileWriter(f, true)){
+                if (!f.exists() || f.length() == 0){
+                    writer.write("Case_ID,Player_ID,Activity,Timestamp,Category,Question_Value,Answer_Given,Result,Score_After_Play\n");
+                }
                else{
                     LocalDateTime obj = LocalDateTime.now();
-                    String statement = "\n" + this.caseID + "," + playerID + "," + activity + "," + obj + "," + category + "," + questionValue + "," + answerGiven + "," + result + "," + scoreAfterPlay;
+                    String statement =  this.caseID + "," + playerID + "," + activity + "," + obj + "," + category + "," + questionValue + "," + answerGiven + "," + result + "," + scoreAfterPlay + "\n";
                     writer.write(statement);
                }
                
