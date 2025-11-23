@@ -9,6 +9,9 @@ import com.jeopardy.writers.CSVLogger;
 import com.jeopardy.writers.DOCWriter;
 import com.jeopardy.writers.PDFWriter;
 import com.jeopardy.writers.TXTWriter;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Runner{
@@ -31,20 +34,26 @@ public class Runner{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file input format(CSV/JSON/XML): ");
         String type = scanner.nextLine();
+        type = type.toUpperCase();
+
         if (type.equals("CSV")){
             String path = Runner.class.getResource("/sample_game_CSV.csv").getPath();
+            path = URLDecoder.decode(path, StandardCharsets.UTF_8);
             rd = new CSVReader(path);
         }
         else if (type.equals("JSON")){
             String path = Runner.class.getResource("/sample_game_JSON.json").getPath();
-            rd = new CSVReader(path);
+            path = URLDecoder.decode(path, StandardCharsets.UTF_8);
+            rd = new JSONReader(path);  // CHANGED FROM CSVReader TO JSONReader
         }
         else{
             String path = Runner.class.getResource("/sample_game_XML.xml").getPath();
+            path = URLDecoder.decode(path, StandardCharsets.UTF_8);
             rd = new XMLReader(path);
         }
         
         questions = rd.read();
+
         log.logger("System", "Load File", "", "", "", "Success", "");
         gameTurns.add("JEOPARDY PROGRAMMING GAME REPORT\n================================\n\nPlayers: ");
 
@@ -77,7 +86,8 @@ public class Runner{
         }
 
         int numQuestions = 0;
-        while (numQuestions < 1){
+        int maxQuestions = questions.size();
+        while (numQuestions < maxQuestions){
             if (playerNumber >= numberPlayers){
                 playerNumber = 0;
             }
@@ -102,6 +112,8 @@ public class Runner{
                         System.out.println("A) " + q.getA() + "\nB) " + q.getB()+ "\nC) " + q.getC()+ "\nD) " + q.getD());
                         System.out.println("Enter choice:");
                         String answer = scanner.nextLine();
+                        answer = answer.toUpperCase();
+
                         if (answer.equals(q.getCorrect())){
                             wc = "Correct";
                             currentPlayer.updatePoints(value);
@@ -124,6 +136,7 @@ public class Runner{
                 playerNumber++;
                 System.out.println("\nDo you want to continue?(Y/N): ");
                 String c = scanner.nextLine();
+                c = c.toUpperCase();
                 if (c.equals("N")){
                     break;
                 }
@@ -141,6 +154,8 @@ public class Runner{
         gameTurns.add("\n");
         System.out.println("Enter report format(TXT/DOC/PDF): ");
         String report = scanner.nextLine();
+        report = report.toUpperCase();
+
         if (report.equals("TXT")){
             TXTWriter txt = new TXTWriter("sample_game_report.txt");
             wtx.setWriterStrategy(txt);

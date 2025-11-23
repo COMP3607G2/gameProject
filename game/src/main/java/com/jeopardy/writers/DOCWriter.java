@@ -14,10 +14,12 @@ public class DOCWriter implements WriterStrategy{
         for (int i = 0; i < statements.size(); i++){
             try(FileWriter writer = new FileWriter(file, true)){
                writer.write(statements.get(i));
-           } catch(IOException e){
-           System.err.println("File not found");
-           e.printStackTrace();
-              }
+            } catch(IOException e){
+                System.err.println("File not found");
+                e.printStackTrace();
+            }
         } 
+
+        System.out.println("DOC report generated: " + file);
     }
 }
