@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.jeopardy.Question;
 
 public class JSONReader implements Reader {
     private String file;
@@ -98,4 +99,5 @@ public class JSONReader implements Reader {
             }
         }
     }
+
 }
