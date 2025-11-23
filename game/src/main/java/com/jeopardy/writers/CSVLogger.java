@@ -3,6 +3,7 @@ package com.jeopardy.writers;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.io.File;
 
 public class CSVLogger{
     private String caseID;
@@ -31,4 +32,5 @@ public class CSVLogger{
            e.printStackTrace();
             }
     }
+
 }
