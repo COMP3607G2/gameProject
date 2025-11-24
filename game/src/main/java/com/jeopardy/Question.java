@@ -57,6 +57,9 @@ public class Question implements Component{
         else if (answer.equals("C")){
             return optionC;
         }
-        return optionD;
+        else if (answer.equals("D")){
+            return optionD;
+        }
+        return null;
     }
 }
