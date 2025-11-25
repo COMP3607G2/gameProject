@@ -7,6 +7,7 @@ public class ScoreDisplay implements Observer{
         this.owner = owner;
     }
 
+    @Override
     public void update(String alert){
         System.out.println("\n" + owner + "'s Display: " + alert);
     }

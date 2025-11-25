@@ -14,6 +14,7 @@ public class JSONReader implements Reader {
         this.file = file;
     }
     
+    @Override
     public ArrayList<Question> read() {
         try (Scanner scan = new Scanner(new File(file))) {
             StringBuilder jsonContent = new StringBuilder();

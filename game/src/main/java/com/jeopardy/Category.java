@@ -18,6 +18,11 @@ public class Category implements Component{
         return name;
     }
 
+    public ArrayList<Question> getList(){
+        return questions;
+    }
+    
+    @Override
     public boolean ifAnswered(){
         for (Question q : questions){
             if (q.ifAnswered()){

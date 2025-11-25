@@ -9,7 +9,9 @@ public class DOCWriter implements WriterStrategy{
     
     public DOCWriter(String file){
        this.file = file;
-   }
+    }
+    
+    @Override
     public void write(ArrayList<String> statements){
         for (int i = 0; i < statements.size(); i++){
             try(FileWriter writer = new FileWriter(file, true)){

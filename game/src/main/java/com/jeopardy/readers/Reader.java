@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import com.jeopardy.Question;
 
 public interface Reader {
-    ArrayList<Question> read();
+    public ArrayList<Question> read();
 }

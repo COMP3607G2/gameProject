@@ -45,6 +45,7 @@ public class Question implements Component{
     
     public String getCorrect(){return correct;}
 
+    @Override
     public boolean ifAnswered(){return answered;}
 
     public String getAnswer(String answer){

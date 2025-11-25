@@ -20,6 +20,7 @@ public class XMLReader implements Reader {
         this.file = file;
     }
 
+    @Override
     public ArrayList<Question> read() {
         try {
             factory = DocumentBuilderFactory.newInstance();
