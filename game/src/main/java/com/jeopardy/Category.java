@@ -24,11 +24,12 @@ public class Category implements Component{
     
     @Override
     public boolean ifAnswered(){
+        boolean ans = true;
         for (Question q : questions){
-            if (q.ifAnswered()){
-                return true;
+            if (!q.ifAnswered()){
+                ans = false;
             }
         }
-        return false;
+        return ans;
     }
 }

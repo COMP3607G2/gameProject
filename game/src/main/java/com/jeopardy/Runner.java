@@ -66,14 +66,14 @@ public class Runner{
         log.logger("System", "Load File", "", "", "", "Success", "");
         gameTurns.add("JEOPARDY PROGRAMMING GAME REPORT\n================================\n\nPlayers: ");
 
-        System.out.println("Enter number of players:");
+        System.out.println("\nEnter number of players:");
         int numberPlayers = scanner.nextInt();
         scanner.nextLine();
         log.logger("System", "Select Player Count", "", "", Integer.toString(numberPlayers), "N/A", "");
 
         while (count < numberPlayers){
             int number = count + 1;
-            System.out.println("Enter name of player " + number + ":");
+            System.out.println("\nEnter name of player " + number + ":");
             String name = scanner.nextLine();
             Player newPlayer = new Player(name);
             players[count] = newPlayer;
@@ -116,7 +116,7 @@ public class Runner{
                     }
                     else{
                         q.answered();
-                        System.out.println(q.getStatement());
+                        System.out.println("\n" + q.getStatement());
                         System.out.println("These are your choices:");
                         System.out.println("A) " + q.getA() + "\nB) " + q.getB()+ "\nC) " + q.getC()+ "\nD) " + q.getD());
                         System.out.println("Enter choice:");
