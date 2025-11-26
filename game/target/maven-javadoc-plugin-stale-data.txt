@@ -1,0 +1,65 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-classpath
+'/home/codespace/.m2/repository/org/apache/pdfbox/pdfbox/3.0.6/pdfbox-3.0.6.jar:/home/codespace/.m2/repository/org/apache/pdfbox/pdfbox-io/3.0.6/pdfbox-io-3.0.6.jar:/home/codespace/.m2/repository/org/apache/pdfbox/fontbox/3.0.6/fontbox-3.0.6.jar:/home/codespace/.m2/repository/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.jar:/home/codespace/.m2/repository/com/itextpdf/itextpdf/5.5.13.3/itextpdf-5.5.13.3.jar:/home/codespace/.m2/repository/com/opencsv/opencsv/5.12.0/opencsv-5.12.0.jar:/home/codespace/.m2/repository/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar:/home/codespace/.m2/repository/org/apache/commons/commons-text/1.13.1/commons-text-1.13.1.jar:/home/codespace/.m2/repository/commons-beanutils/commons-beanutils/1.11.0/commons-beanutils-1.11.0.jar:/home/codespace/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/codespace/.m2/repository/org/apache/commons/commons-collections4/4.5.0/commons-collections4-4.5.0.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'11'
+-sourcepath
+'/workspaces/gameProject/game/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/workspaces/gameProject/game/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'game 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/workspaces/gameProject/game/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'game 1.0-SNAPSHOT API'
+com.jeopardy
+com.jeopardy.writers
+com.jeopardy.readers
+/home/codespace/.m2/repository/org/apache/pdfbox/pdfbox/3.0.6/pdfbox-3.0.6.jar = 1760369698000
+/home/codespace/.m2/repository/org/apache/pdfbox/pdfbox-io/3.0.6/pdfbox-io-3.0.6.jar = 1760369666000
+/home/codespace/.m2/repository/org/apache/pdfbox/fontbox/3.0.6/fontbox-3.0.6.jar = 1760369672000
+/home/codespace/.m2/repository/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.jar = 1738337232000
+/home/codespace/.m2/repository/com/itextpdf/itextpdf/5.5.13.3/itextpdf-5.5.13.3.jar = 1645715303000
+/home/codespace/.m2/repository/com/opencsv/opencsv/5.12.0/opencsv-5.12.0.jar = 1753577218000
+/home/codespace/.m2/repository/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar = 1751823786000
+/home/codespace/.m2/repository/org/apache/commons/commons-text/1.13.1/commons-text-1.13.1.jar = 1744054988000
+/home/codespace/.m2/repository/commons-beanutils/commons-beanutils/1.11.0/commons-beanutils-1.11.0.jar = 1748179136000
+/home/codespace/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar = 1447369876000
+/home/codespace/.m2/repository/org/apache/commons/commons-collections4/4.5.0/commons-collections4-4.5.0.jar = 1745071190000
+/workspaces/gameProject/game/src/main/java = 1764190235366
+/workspaces/gameProject/game/target/reports/apidocs/constant-values.html = 1764190313009
+/workspaces/gameProject/game/target/reports/apidocs/index-all.html = 1764190313257
+/workspaces/gameProject/game/target/reports/apidocs/script.js = 1764190313326
+/workspaces/gameProject/game/target/reports/apidocs/help-doc.html = 1764190313311
+/workspaces/gameProject/game/target/reports/apidocs/index.html = 1764190313297
+/workspaces/gameProject/game/target/reports/apidocs/package-search-index.zip = 1764190313250
+/workspaces/gameProject/game/target/reports/apidocs/type-search-index.js = 1764190313253
+/workspaces/gameProject/game/target/reports/apidocs/stylesheet.css = 1764190313325
+/workspaces/gameProject/game/target/reports/apidocs/member-search-index.zip = 1764190313254
+/workspaces/gameProject/game/target/reports/apidocs/allclasses.html = 1764190313289
+/workspaces/gameProject/game/target/reports/apidocs/overview-tree.html = 1764190313173
+/workspaces/gameProject/game/target/reports/apidocs/allclasses-index.html = 1764190313273
+/workspaces/gameProject/game/target/reports/apidocs/element-list = 1764190312962
+/workspaces/gameProject/game/target/reports/apidocs/deprecated-list.html = 1764190313285
+/workspaces/gameProject/game/target/reports/apidocs/member-search-index.js = 1764190313254
+/workspaces/gameProject/game/target/reports/apidocs/package-search-index.js = 1764190313245
+/workspaces/gameProject/game/target/reports/apidocs/overview-summary.html = 1764190313298
+/workspaces/gameProject/game/target/reports/apidocs/type-search-index.zip = 1764190313253
+/workspaces/gameProject/game/target/reports/apidocs/search.js = 1764190313340
+/workspaces/gameProject/game/target/reports/apidocs/allpackages-index.html = 1764190313277
