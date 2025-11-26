@@ -1,7 +1,6 @@
 package com.jeopardy;
 
 import java.util.ArrayList;
-
 import com.jeopardy.writers.WriterStrategy;
 
 public class WriterContext {

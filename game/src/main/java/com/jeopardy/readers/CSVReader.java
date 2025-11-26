@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-//use OpenCSV
 public class CSVReader implements Reader{
    private String file;
    private ArrayList<Question> questions = new ArrayList<Question>();

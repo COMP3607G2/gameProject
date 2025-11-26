@@ -24,16 +24,13 @@ public class JSONReader implements Reader {
             
             String json = jsonContent.toString().trim();
             
-            // **CHANGE 1: Better bracket handling**
             if (json.startsWith("[") && json.endsWith("]")) {
                 json = json.substring(1, json.length() - 1).trim();
             }
             
-            // **CHANGE 2: More reliable splitting**
             String[] questionBlocks = json.split("\\}\\s*,\\s*\\{");
             
             for (String block : questionBlocks) {
-                // **CHANGE 3: Ensure proper JSON object format**
                 if (!block.startsWith("{")) block = "{" + block;
                 if (!block.endsWith("}")) block = block + "}";
                 
@@ -51,8 +48,6 @@ public class JSONReader implements Reader {
     private Question parseQuestionBlock(String block) {
         try {
             Question q = new Question();
-            
-            // **CHANGE 4: Use improved value extraction**
             q.setCategory(extractJsonValue(block, "Category"));
             q.setStatement(extractJsonValue(block, "Question"));
             
@@ -61,7 +56,6 @@ public class JSONReader implements Reader {
             
             q.setCorrect(extractJsonValue(block, "CorrectAnswer"));
             
-            // **CHANGE 5: Parse options with better logic**
             parseOptions(block, q);
             
             return q;
@@ -72,7 +66,6 @@ public class JSONReader implements Reader {
         }
     }
     
-    // **CHANGE 6: NEW METHOD - Better JSON value extraction**
     private String extractJsonValue(String json, String key) {
         String searchKey = "\"" + key + "\"";
         int keyIndex = json.indexOf(searchKey);
@@ -81,22 +74,19 @@ public class JSONReader implements Reader {
         int valueStart = json.indexOf(":", keyIndex) + 1;
         if (valueStart <= keyIndex) return "";
         
-        // Skip whitespace
         while (valueStart < json.length() && Character.isWhitespace(json.charAt(valueStart))) {
             valueStart++;
         }
         
         if (valueStart >= json.length()) return "";
         
-        // Handle quoted values
         if (json.charAt(valueStart) == '"') {
-            valueStart++; // Skip opening quote
+            valueStart++;
             int valueEnd = json.indexOf("\"", valueStart);
             if (valueEnd == -1) return "";
             return json.substring(valueStart, valueEnd).trim();
         }
         
-        // Handle unquoted values
         int valueEnd = valueStart;
         while (valueEnd < json.length() && 
                json.charAt(valueEnd) != ',' && 
@@ -108,7 +98,6 @@ public class JSONReader implements Reader {
         return json.substring(valueStart, valueEnd).trim();
     }
     
-    // **CHANGE 7: IMPROVED OPTIONS PARSING**
     private void parseOptions(String json, Question q) {
         int optionsStart = json.indexOf("\"Options\"");
         if (optionsStart == -1) return;
@@ -116,7 +105,6 @@ public class JSONReader implements Reader {
         int objectStart = json.indexOf("{", optionsStart);
         if (objectStart == -1) return;
         
-        // Find the complete Options object
         int braceCount = 1;
         int objectEnd = objectStart + 1;
         while (objectEnd < json.length() && braceCount > 0) {
@@ -129,7 +117,6 @@ public class JSONReader implements Reader {
         
         String optionsJson = json.substring(objectStart, objectEnd);
         
-        // Extract each option
         q.setA(extractJsonValue(optionsJson, "A"));
         q.setB(extractJsonValue(optionsJson, "B"));
         q.setC(extractJsonValue(optionsJson, "C"));
