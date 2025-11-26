@@ -18,6 +18,7 @@ public class CSVLoggerTest {
 
         CSVLogger logger = new CSVLogger(logPath);
         logger.logger("Player1", "Answer", "Science", "100", "What is Java?", "Correct", "100");
+        logger.logger("Player1", "Answer", "Science", "100", "What is Java?", "Correct", "100");
 
         assertTrue(logFile.exists(), "Log file should be created");
 
@@ -41,6 +42,7 @@ public class CSVLoggerTest {
         String logPath = logFile.getAbsolutePath();
 
         CSVLogger logger1 = new CSVLogger(logPath);
+        logger1.logger("Player1", "Start", "N/A", "0", "N/A", "N/A", "0");
         logger1.logger("Player1", "Start", "N/A", "0", "N/A", "N/A", "0");
 
         CSVLogger logger2 = new CSVLogger(logPath);
