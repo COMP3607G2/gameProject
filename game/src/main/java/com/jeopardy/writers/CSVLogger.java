@@ -5,17 +5,37 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.io.File;
 
+/**
+ * Writes logs to CSV file
+ */
 public class CSVLogger{
+    /**Game ID */
     private String caseID;
+    /**The file path that is written to  */
     private String file;
+    /**Name of game */
     private static int number = 1;
     
+    /**
+    * Writes logs as a CSV file
+    * @param file file to be written to
+    */
     public CSVLogger(String file){
         this.file = file;
         caseID = "GAME" + number;
         number++;
     }
     
+    /**
+    * Writes an individual log
+    * @param playerID player
+    * @param activity event
+    * @param category category chosen
+    * @param questionValue value chosen
+    * @param answerGiven response
+    * @param result result
+    * @param scoreAfterPlay updated score
+    */
     public void logger(String playerID, String activity, String category, String questionValue, String answerGiven, String result, String scoreAfterPlay){
             File f = new File(file);
             try(FileWriter writer = new FileWriter(f, true)){

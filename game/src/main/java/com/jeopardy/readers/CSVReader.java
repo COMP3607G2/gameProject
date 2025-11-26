@@ -8,14 +8,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * Reads CSV files for Questions
+ */
 public class CSVReader implements Reader{
+   /**The file path that is read */
    private String file;
+   /**The questions that would be used in the game */
    private ArrayList<Question> questions = new ArrayList<Question>();
  
+   /**
+    * Creates a CSVReader
+    * @param file file to be read from
+    */
    public CSVReader(String file){
        this.file = file;
    }
    
+   /**
+    * Reads the questions from CSV file
+    * @return all questions
+    */
    @Override
    public ArrayList<Question> read(){
        try(Scanner scan = new Scanner(new File(file))){

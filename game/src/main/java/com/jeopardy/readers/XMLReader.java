@@ -1,3 +1,4 @@
+
 package com.jeopardy.readers;
 
 import java.util.ArrayList;
@@ -9,17 +10,33 @@ import org.w3c.dom.NodeList;
 import com.jeopardy.Question;
 import java.io.File;
 
+/**
+ * Reads XML files for Questions
+ */
 public class XMLReader implements Reader {
+    /**The file path that is read */
     private String file;
+    /**Factory for DocumentBuilders */
     private DocumentBuilderFactory factory;
+    /**Parser */
     private DocumentBuilder builder;
+    /**Parsed document */
     private Document document;
+    /**The questions that would be used in the game */
     private ArrayList<Question> questions = new ArrayList<Question>();
 
+    /**
+    * Creates a XMLReader
+    * @param file file to be read from
+    */
     public XMLReader(String file) {
         this.file = file;
     }
 
+    /**
+    * Reads the questions from CSV file
+    * @return all questions
+    */
     @Override
     public ArrayList<Question> read() {
         try {
@@ -69,6 +86,12 @@ public class XMLReader implements Reader {
         return questions;
     }
 
+    /**
+    * Gets content from parent element
+    * @param parent parent XML
+    * @param tagName tag name
+    * @return content
+    */
     private String getElementText(Element parent, String tagName) {
         NodeList nodeList = parent.getElementsByTagName(tagName);
         if (nodeList.getLength() > 0) {

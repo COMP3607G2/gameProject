@@ -15,7 +15,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * Encapsulates game logic
+ * 
+ */
 public class Runner{
+    /**
+     * Facilitates running the game
+     * @param args command line
+     */
     public static void main(String[] args){
         ArrayList<Question> questions = new ArrayList<Question>();
         ArrayList<ScoreDisplay> displays = new ArrayList<ScoreDisplay>();

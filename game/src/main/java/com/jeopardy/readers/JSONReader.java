@@ -1,3 +1,6 @@
+/**
+ * Reads JSON files for Questions
+ */
 package com.jeopardy.readers;
 
 import java.io.File;
@@ -7,13 +10,24 @@ import java.util.Scanner;
 import com.jeopardy.Question;
 
 public class JSONReader implements Reader {
+    /**The file path that is read */
     private String file;
+    /**The questions that would be used in the game */
     private ArrayList<Question> questions = new ArrayList<Question>();
     
+    /**
+    * Creates a JSONReader
+    * @param file file to be read from
+    */
     public JSONReader(String file) {
         this.file = file;
     }
     
+    
+    /**
+    * Reads the questions from CSV file
+    * @return all questions
+    */
     @Override
     public ArrayList<Question> read() {
         try (Scanner scan = new Scanner(new File(file))) {
@@ -45,6 +59,11 @@ public class JSONReader implements Reader {
         return questions;
     }
     
+    /**
+    * Parses JSON string into Question Object
+    * @param block JSON string
+    * @return Question object
+    */
     private Question parseQuestionBlock(String block) {
         try {
             Question q = new Question();
@@ -66,6 +85,12 @@ public class JSONReader implements Reader {
         }
     }
     
+    /**
+    * Gets value from JSON string
+    * @param json JSON to be searched
+    * @param key key to use to search
+    * @return value retrieved
+    */
     private String extractJsonValue(String json, String key) {
         String searchKey = "\"" + key + "\"";
         int keyIndex = json.indexOf(searchKey);
@@ -98,6 +123,11 @@ public class JSONReader implements Reader {
         return json.substring(valueStart, valueEnd).trim();
     }
     
+    /**
+    * Get all options for Question
+    * @param block JSON string
+    * @param q question to add to
+    */
     private void parseOptions(String json, Question q) {
         int optionsStart = json.indexOf("\"Options\"");
         if (optionsStart == -1) return;

@@ -8,13 +8,22 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+/**
+ * Writes game summary as a PDF file
+ */
 public class PDFWriter implements WriterStrategy {
+    /**The file path that is written to */
     private String file;
     
+    /**Creates a PDFWriter */
     public PDFWriter(String file) {
         this.file = file;
     }
     
+    /**
+    * Writes the game summary to PDF file
+    * @param statements all lines in summary report
+    */
     @Override
     public void write(ArrayList<String> statements) {
         Document document = new Document();
